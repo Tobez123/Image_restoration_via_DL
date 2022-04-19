@@ -14,8 +14,10 @@ dataset_train = read_image(data_path_train, 18)
 dataset_val = read_image(data_path_val, 18)
 data_loader_train = create_dataset(dataset_train, 4, True)
 data_loader_val = create_dataset(dataset_val, 4, True)
+# 调用gpu
+device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 # 模型初始化
-DAEmodel = DeTurbAutoEncoder()
+DAEmodel = DeTurbAutoEncoder().to(device)
 # 定义优化器
 LR = 0.0003
 optimizer = torch.optim.Adam(DAEmodel.parameters(), lr=LR)
